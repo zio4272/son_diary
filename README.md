@@ -1,6 +1,6 @@
 # son_diary
 
-`재밌네 ㅅ.ㅂ..`
+`재밌..`
 
 Node JS, Express, Sequelize, MySQL
 

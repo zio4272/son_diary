@@ -2,7 +2,6 @@ const express = require("express");
 const router = express.Router();
 var { sequelize, Sequelize } = require("../models/index");
 const Users = require("../models/users")(sequelize, Sequelize);
-const { verifyToken } = require("./middlewares");
 
 // 사용자 전체 조회 DESC 정렬
 router.get("/", async (req, res) => {

@@ -25,9 +25,7 @@ exports.verifyToken = (req, res, next) => {
   const token = authHeader.split(" ")[1];
   try {
     req.decoded = jwt.verify(token, process.env.ACCESS_TOKEN_KEY);
-    return next(
-      res.status(200).json({ code: 200, message: "인증됨", data: req.decoded })
-    );
+    return next();
   } catch (err) {
     if (err.name === "TokenExpiredError") {
       return res.status(419).json({

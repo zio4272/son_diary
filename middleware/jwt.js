@@ -2,28 +2,32 @@ require("dotenv").config();
 const jwt = require("jsonwebtoken");
 
 // create access token
-const createAccessToken = (payload) => {
+exports.createAccessToken = (payload) => {
   return jwt.sign(payload, process.env.ACCESS_TOKEN_KEY, {
     algorithm: process.env.ALGORITHM,
-    expiresIn: "360s",
+    expiresIn: "10m",
   });
 };
 
 // create refresh token
-const createRefreshToken = (payload) => {
+exports.createRefreshToken = (payload) => {
   return jwt.sign(payload, process.env.REFRESH_TOKEN_KEY, {
     algorithm: process.env.ALGORITHM,
     expiresIn: "10d",
   });
 };
 
-const verifyToken = (req, res, next) => {
+exports.verifyToken = (req, res, next) => {
   const authHeader = req.headers.authorization;
+  if (!authHeader) {
+    return res.status(401).json({ code: 401, message: "토큰값은 필수입니다." });
+  }
   const token = authHeader.split(" ")[1];
   try {
     req.decoded = jwt.verify(token, process.env.ACCESS_TOKEN_KEY);
-    console.log(req.decoded, req.decoded.userId);
-    return next();
+    return next(
+      res.status(200).json({ code: 200, message: "인증됨", data: req.decoded })
+    );
   } catch (err) {
     if (err.name === "TokenExpiredError") {
       return res.status(419).json({
@@ -38,18 +42,18 @@ const verifyToken = (req, res, next) => {
   }
 };
 
-const verifyRefreshToken = (req, res) => {
-  const refreshToken = req.body.refreshToken;
+exports.verifyRefreshToken = (req, res) => {
+  const refreshToken = req.body.refresh_token;
   try {
     req.decoded = jwt.verify(refreshToken, process.env.REFRESH_TOKEN_KEY);
     const userId = req.decoded.userId;
     const loginId = req.decoded.loginId;
     const payload = { userId, loginId };
-
+    const accessToken = this.createAccessToken(payload);
     return res.status(200).json({
       code: 200,
       message: "새로운 accessToken이 발급 되었습니다.",
-      data: { access_token: createAccessToken(payload) },
+      data: { access_token: accessToken },
     });
   } catch (err) {
     if (err.name === "TokenExpiredError") {
@@ -63,11 +67,4 @@ const verifyRefreshToken = (req, res) => {
       message: "유효하지 않은 토큰입니다.",
     });
   }
-};
-
-module.exports = {
-  createAccessToken,
-  createRefreshToken,
-  verifyToken,
-  verifyRefreshToken,
 };

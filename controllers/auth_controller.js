@@ -5,8 +5,6 @@ require("dotenv").config();
 const {
   createAccessToken,
   createRefreshToken,
-  verifyToken,
-  verifyRefreshToken,
 } = require("../middleware/jwt");
 const {
   encryptionPassword,

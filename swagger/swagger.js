@@ -14,6 +14,19 @@ const options = {
         email: "mail@gmail.com",
       },
     },
+    components: {
+      securitySchemes: {
+        bearerAuth: {
+          type: "http",
+          scheme: "bearer",
+        },
+      },
+    },
+    security: [
+      {
+        bearerAuth: [],
+      },
+    ],
     servers: [{ url: "http://localhost:3000", description: "local Server" }],
   },
   apis: ["./routes/*.js", "./swagger/*"],

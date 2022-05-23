@@ -52,10 +52,10 @@ exports.loginUser = async (req, res) => {
     if (!password) {
       res.status(401).json({ code: 401, message: "비밀번호가 일치하지 않습니다. 😡" });
     } else {
-      const userId = user.id;
+      const user_id = user.id;
       const userNickName = user.nick_name;
-      const accessPayload = { userId, email };
-      const refreshPayload = { userId, email, userNickName };
+      const accessPayload = { user_id, email };
+      const refreshPayload = { user_id, email, userNickName };
       const accessToken = createAccessToken(accessPayload);
       const refreshToken = createRefreshToken(refreshPayload);
 

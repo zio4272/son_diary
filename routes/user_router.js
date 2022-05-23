@@ -20,33 +20,22 @@ const user_controller = require("../controllers/user_controller");
  *          content:
  *            application/json:
  *              schema:
- *                $ref: '#/components/schemas/Users'
+ *                type: array
+ *                items:
+ *                  $ref: '#/components/schemas/User'
  *        '400':
- *          description: Bad Request
+ *          description: 잘못된 요청
  *          content:
  *            application/json:
  *              schema:
- *                type: object
- *                properties:
- *                  code:
- *                    type: integer
- *                    example: 400
- *                  message:
- *                    type: string
- *                    example: Bad Request
+ *                $ref: '#/components/responses/400BadRequest'
+ *
  *        '401':
- *          description: Unauthorized
+ *          description: 승인되지 않았습니다
  *          content:
  *            application/json:
  *              schema:
- *                type: object
- *                properties:
- *                  code:
- *                    type: integer
- *                    example: 401
- *                  message:
- *                    type: string
- *                    example: Unauthorized
+ *               $ref: '#/components/responses/401Unauthorized'
  */
 // 사용자 전체 조회 DESC 정렬
 router.get("/", token.verifyToken, user_controller.getAllUsers);
@@ -75,46 +64,25 @@ router.get("/", token.verifyToken, user_controller.getAllUsers);
  *              schema:
  *                $ref: '#/components/schemas/User'
  *        '400':
- *          description: Bad Request
+ *          description: 잘못된 요청 입니다
  *          content:
  *            application/json:
  *              schema:
- *                type: object
- *                properties:
- *                  code:
- *                    type: integer
- *                    example: 400
- *                  message:
- *                    type: string
- *                    example: Bad Request
+ *                $ref: '#/components/responses/400BadRequest'
  *        '401':
- *          description: Unauthorized
+ *          description: 승인되지 않았습니다
  *          content:
  *            application/json:
  *              schema:
- *                type: object
- *                properties:
- *                  code:
- *                    type: integer
- *                    example: 401
- *                  message:
- *                    type: string
- *                    example: Unauthorized
+ *                $ref: '#/components/responses/401Unauthorized'
  *        '404':
- *          description: Not Found
+ *          description: 존재하지 않습니다
  *          content:
  *            application/json:
  *              schema:
- *                type: object
- *                properties:
- *                  code:
- *                    type: integer
- *                    example: 404
- *                  message:
- *                    type: string
- *                    example: Not Found
+ *                $ref: '#/components/responses/404NotFound'
  */
 // get one user
-router.get("/:id", token.verifyToken, user_controller.getUser);
+router.get("/:id", user_controller.getUser);
 
 module.exports = router;

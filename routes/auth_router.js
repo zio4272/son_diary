@@ -18,7 +18,11 @@ const auth_controller = require("../controllers/auth_controller");
  *        content:
  *          application/json:
  *            schema:
- *              $ref: '#/components/schemas/Register'
+ *              $ref: '#/components/schemas/User'
+ *            example:
+ *              login_id: string
+ *              password: string
+ *              nick_name: string
  *
  *      responses:
  *        201:
@@ -27,19 +31,13 @@ const auth_controller = require("../controllers/auth_controller");
  *            application/json:
  *              schema:
  *                $ref: '#/components/schemas/User'
+ * 
  *        400:
- *          description: 잘못된 요청.
+ *          description: 잘못된 요청
  *          content:
  *            application/json:
  *              schema:
- *                type: object
- *                properties:
- *                  code:
- *                    type: integer
- *                    example: 400
- *                  message:
- *                    type: string
- *                    example: 잘못된 요청.
+ *                $ref: '#/components/responses/400BadRequest'
  *
  */
 router.post("/register", auth_controller.registerUser);
@@ -58,7 +56,14 @@ router.post("/register", auth_controller.registerUser);
  *        content:
  *          application/json:
  *            schema:
- *              $ref: '#/components/schemas/Login'
+ *              type: object
+ *              properties:
+ *                login_id:
+ *                  type: string
+ *                password:
+ *                  type: string
+ *                  format: password
+ *                
  *
  *      responses:
  *        200:
@@ -72,14 +77,7 @@ router.post("/register", auth_controller.registerUser);
  *          content:
  *            application/json:
  *              schema:
- *                type: object
- *                properties:
- *                  code:
- *                    type: integer
- *                    example: 400
- *                  message:
- *                    type: string
- *                    example: 잘못된 요청.
+ *                $ref: '#/components/responses/400BadRequest'
  */
 // 로그인
 router.post("/login", auth_controller.loginUser);

@@ -4,7 +4,6 @@ const router = express.Router();
 const token = require("../middleware/jwt");
 
 const auth_controller = require("../controllers/auth_controller");
-
 /**
  * @swagger
  *  /auth/register:
@@ -31,7 +30,7 @@ const auth_controller = require("../controllers/auth_controller");
  *            application/json:
  *              schema:
  *                $ref: '#/components/schemas/User'
- * 
+ *
  *        400:
  *          description: 잘못된 요청
  *          content:
@@ -64,7 +63,7 @@ router.post("/register", auth_controller.registerUser);
  *                password:
  *                  type: string
  *                  format: password
- *                
+ *
  *
  *      responses:
  *        200:

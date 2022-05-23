@@ -20,7 +20,7 @@ const auth_controller = require("../controllers/auth_controller");
  *            schema:
  *              $ref: '#/components/schemas/User'
  *            example:
- *              login_id: string
+ *              email: email@email.com
  *              password: string
  *              nick_name: string
  *
@@ -58,8 +58,9 @@ router.post("/register", auth_controller.registerUser);
  *            schema:
  *              type: object
  *              properties:
- *                login_id:
+ *                email:
  *                  type: string
+ *                  format: email
  *                password:
  *                  type: string
  *                  format: password

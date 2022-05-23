@@ -14,12 +14,12 @@ const {
 // TODO - user object return password hidden
 
 exports.registerUser = async (req, res) => {
-  const loginId = await req.body.login_id;
+  const email = await req.body.email;
   const password = encryptionPassword(req.body.password); //패스워드암호화
   const nickName = await req.body.nick_name;
 
   await Users.create({
-    login_id: loginId,
+    email: email,
     password: password,
     nick_name: nickName,
   })
@@ -38,11 +38,11 @@ exports.registerUser = async (req, res) => {
 
 // 로그인
 exports.loginUser = async (req, res) => {
-  const loginId = req.body.login_id;
+  const email = req.body.email;
   const inputPassword = req.body.password;
   const user = await Users.findOne({
     where: {
-      login_id: loginId,
+      email: email,
     },
   });
   const password = decryptionPassword(inputPassword, user.password);
@@ -54,8 +54,8 @@ exports.loginUser = async (req, res) => {
     } else {
       const userId = user.id;
       const userNickName = user.nick_name;
-      const accessPayload = { userId, loginId };
-      const refreshPayload = { userId, loginId, userNickName };
+      const accessPayload = { userId, email };
+      const refreshPayload = { userId, email, userNickName };
       const accessToken = createAccessToken(accessPayload);
       const refreshToken = createRefreshToken(refreshPayload);
 

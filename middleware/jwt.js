@@ -45,8 +45,8 @@ exports.verifyRefreshToken = (req, res) => {
   try {
     req.decoded = jwt.verify(refreshToken, process.env.REFRESH_TOKEN_KEY);
     const userId = req.decoded.userId;
-    const loginId = req.decoded.loginId;
-    const payload = { userId, loginId };
+    const email = req.decoded.email;
+    const payload = { userId, email };
     const accessToken = this.createAccessToken(payload);
     return res.status(200).json({
       code: 200,

@@ -6,10 +6,15 @@ module.exports = (sequelize, DataTypes) => {
   const users = sequelize.define(
     "Users",
     {
-      login_id: {
-        type: Sequelize.STRING(40),
-        unique: { msg: "이미 존재하는 로그인 아이디입니다." },
+      email: {
+        type: Sequelize.STRING(100),
+        unique: true,
         allowNull: false,
+        validate: {
+          isEmail: {
+            msg: "이메일 양식이 올바르지 않습니다."
+          }
+        },
       },
       password: {
         type: Sequelize.STRING(200),
@@ -33,9 +38,9 @@ module.exports = (sequelize, DataTypes) => {
       tableName: "users",
       charset: "utf8",
       collate: "utf8_unicode_ci",
-    //     defaultScope: { // 비밀번호는 리턴값에서 제외
-    //       attributes: { exclude: ["password"] },
-    //     },
+      //     defaultScope: { // 비밀번호는 리턴값에서 제외
+      //       attributes: { exclude: ["password"] },
+      //     },
     }
   );
   return users;

@@ -5,9 +5,10 @@ components:
         id:
           type: integer
           description: 아이디
-        login_id:
+        email:
           type: string
-          description: 로그인 아이디
+          format: email
+          description: 이메일
         nick_name:
           type: string
           description: 닉네임

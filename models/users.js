@@ -8,12 +8,12 @@ module.exports = (sequelize, DataTypes) => {
     {
       email: {
         type: Sequelize.STRING(100),
-        unique: true,
+        unique: { msg: "이미 존재하는 이메일 입니다." },
         allowNull: false,
         validate: {
           isEmail: {
-            msg: "이메일 양식이 올바르지 않습니다."
-          }
+            msg: "이메일 양식이 올바르지 않습니다.",
+          },
         },
       },
       password: {

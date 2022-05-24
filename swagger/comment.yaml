@@ -33,8 +33,6 @@ components:
         properties:
           user:
             $ref: '#/components/schemas/User'
-          post:
-            $ref: '#/components/schemas/Post'
 
   responses:
     400BadRequest:

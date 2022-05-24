@@ -1,5 +1,5 @@
 var { sequelize, Sequelize } = require("../models/index");
-const Users = require("../models/users")(sequelize, Sequelize);
+const Users = require("../models/user")(sequelize, Sequelize);
 
 // 사용자 전체 조회 DESC 정렬
 exports.getAllUsers = async (req, res) => {

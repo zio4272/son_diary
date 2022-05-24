@@ -1,10 +1,11 @@
 "use strict";
 
 const Sequelize = require("sequelize");
+const db = {};
 
 module.exports = (sequelize, DataTypes) => {
-  const users = sequelize.define(
-    "Users",
+  const User = sequelize.define(
+    "User",
     {
       email: {
         type: Sequelize.STRING(100),
@@ -36,12 +37,20 @@ module.exports = (sequelize, DataTypes) => {
       paranoid: true,
       underscored: true,
       tableName: "users",
-      charset: "utf8",
-      collate: "utf8_unicode_ci",
+      chartset: "utf8mb4",
+      collate: "utf8mb4_general_ci",
       //     defaultScope: { // 비밀번호는 리턴값에서 제외
       //       attributes: { exclude: ["password"] },
       //     },
     }
   );
-  return users;
+  User.associate = (db) => {
+    User.hasMany(db.Post, {
+      foreignKey: "user_id",
+    });
+    User.hasMany(db.Comment, {
+      foreignKey: "user_id",
+    });
+  };
+  return User;
 };

@@ -43,55 +43,8 @@ Object.keys(db).forEach((modelName) => {
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
-const Users = require("./users")(sequelize, Sequelize);
-const Posts = require("./posts")(sequelize, Sequelize);
-const Comments = require("./comments")(sequelize, Sequelize);
-
-// Users : N
-Users.hasMany(Posts, {
-  foreignKey: {
-    name: "user_id",
-    allowNull: false,
-    constraints: true,
-  },
-});
-
-// Posts : 1
-Posts.belongsTo(Users, {
-  foreignKey: {
-    name: "user_id",
-    allowNull: false,
-  },
-});
-
-Posts.hasMany(Comments, {
-  foreignKey: {
-    name: "post_id",
-    allowNull: false,
-    constraints: true,
-  },
-});
-
-Users.hasMany(Comments, {
-  foreignKey: {
-    name: "user_id",
-    allowNull: false,
-    constraints: true,
-  },
-});
-
-Comments.belongsTo(Posts, {
-  foreignKey: {
-    name: "post_id",
-    allowNull: false,
-  },
-});
-
-Comments.belongsTo(Users, {
-  foreignKey: {
-    name: "user_id",
-    allowNull: false,
-  },
-});
+const User = require("./user")(sequelize, Sequelize);
+const Post = require("./post")(sequelize, Sequelize);
+const Comment = require("./comment")(sequelize, Sequelize);
 
 module.exports = db;

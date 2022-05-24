@@ -23,12 +23,18 @@ components:
           type: string
           format: date-time
           description: 삭제일자
-        post:
-          type: object
-          $ref: '#/components/schemas/Post'
         user:
-          type: object
           $ref: '#/components/schemas/User'
+
+    Comments:
+      type: array
+      items:
+        $ref: '#/components/schemas/Comment'
+        properties:
+          user:
+            $ref: '#/components/schemas/User'
+          post:
+            $ref: '#/components/schemas/Post'
 
   responses:
     400BadRequest:

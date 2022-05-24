@@ -5,6 +5,8 @@ components:
         id:
           type: integer
           format: int64
+        user_id:
+          type: integer
         title:
           type: string
         content:
@@ -22,14 +24,19 @@ components:
           format: date-time
           description: 삭제일자
         user:
-          type: object
-          $ref: '#/components/schemas/User'
-        comments:
-          type: array
-          items:
-            type: object
-            $ref: '#/components/schemas/Comment'
-            
+            $ref: '#/components/schemas/User'
+
+    Posts:
+      type: array
+      items:
+        type: object
+        $ref: '#/components/schemas/Post'
+        properties:
+          user:
+            $ref: '#/components/schemas/User'
+          comments:
+            $ref: '#/components/schemas/Comments'
+          
   responses:
     400BadRequest:
       description: 잘못된 요청 입니다

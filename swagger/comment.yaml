@@ -5,6 +5,10 @@ components:
         id:
           type: integer
           format: int64
+        post_id:
+          type: integer
+        user_id:
+          type: integer
         comment:
           type: string
         created_at:

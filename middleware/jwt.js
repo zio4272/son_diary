@@ -5,7 +5,7 @@ const jwt = require("jsonwebtoken");
 exports.createAccessToken = (payload) => {
   return jwt.sign(payload, process.env.ACCESS_TOKEN_KEY, {
     algorithm: process.env.ALGORITHM,
-    expiresIn: "10m",
+    expiresIn: "1h",
   });
 };
 

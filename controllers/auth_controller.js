@@ -1,5 +1,5 @@
 var { sequelize, Sequelize } = require("../models/index");
-const Users = require("../models/user")(sequelize, Sequelize);
+const User = require("../models/user")(sequelize, Sequelize);
 require("dotenv").config();
 
 const {
@@ -18,7 +18,7 @@ exports.registerUser = async (req, res) => {
   const password = encryptionPassword(req.body.password); //패스워드암호화
   const nickName = await req.body.nick_name;
 
-  await Users.create({
+  await User.create({
     email: email,
     password: password,
     nick_name: nickName,
@@ -40,7 +40,7 @@ exports.registerUser = async (req, res) => {
 exports.loginUser = async (req, res) => {
   const email = req.body.email;
   const inputPassword = req.body.password;
-  const user = await Users.findOne({
+  const user = await User.findOne({
     where: {
       email: email,
     },

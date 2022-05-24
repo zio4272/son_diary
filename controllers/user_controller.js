@@ -1,9 +1,9 @@
 var { sequelize, Sequelize } = require("../models/index");
-const Users = require("../models/user")(sequelize, Sequelize);
+const User = require("../models/user")(sequelize, Sequelize);
 
 // 사용자 전체 조회 DESC 정렬
 exports.getAllUsers = async (req, res) => {
-    await Users.findAll({ order: [["id", "DESC"]] })
+    await User.findAll({ order: [["id", "DESC"]] })
       .then((result) => {
         res
           .status(200)
@@ -16,7 +16,7 @@ exports.getAllUsers = async (req, res) => {
 
 // get one user
 exports.getUser = async (req, res) => {
-  await Users.findOne({
+  await User.findOne({
     where: { id: req.params.id },
   })
     .then((result) => {

@@ -7,6 +7,7 @@ const { swaggerUi, specs } = require("./swagger/swagger");
 
 const authRouter = require("./routes/auth_router");
 const userRouter = require("./routes/user_router");
+const postRouter = require("./routes/post_router");
 
 // express 에서 바로 사용가능
 app.use(express.urlencoded({ extended: true }));
@@ -15,8 +16,9 @@ app.use(express.json());
 // routes
 app.use("/auth", authRouter);
 app.use("/user", userRouter);
+app.use("/post", postRouter);
 
-// sequelize.sync();
+// sequelize.sync({ force: true });
 
 // sequelize.sync().then(() => {
 //   console.log("DB 연결 성공");

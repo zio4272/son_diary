@@ -1,5 +1,4 @@
-var { sequelize, Sequelize } = require("../models/index");
-const User = require("../models/user")(sequelize, Sequelize);
+var { User } = require("../models/index");
 require("dotenv").config();
 
 const {

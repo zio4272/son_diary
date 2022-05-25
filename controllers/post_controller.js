@@ -1,6 +1,4 @@
-var { sequelize, Sequelize, Post, User, Comment } = require("../models/index");
-// const Post = require("../models/post")(sequelize, Sequelize);
-// const User = require("../models/user")(sequelize, Sequelize);
+const { Post, User, Comment } = require("../models/index");
 
 // POST 전체 조회 DESC 정렬
 exports.getAllPosts = async (req, res) => {
@@ -8,7 +6,11 @@ exports.getAllPosts = async (req, res) => {
     order: [["id", "DESC"]],
     include: [
       { model: User, as: "user" },
-      { model: Comment, as: "comments" },
+      {
+        model: Comment,
+        as: "comments",
+        include: [{ model: User, as: "user" }],
+      },
     ],
   })
     .then((result) => {

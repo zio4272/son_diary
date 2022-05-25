@@ -1,8 +1,6 @@
 "use strict";
 
 const Sequelize = require("sequelize");
-const User = require("./user");
-const db = {};
 
 module.exports = (sequelize, DataTypes) => {
   const Post = sequelize.define(
@@ -34,13 +32,5 @@ module.exports = (sequelize, DataTypes) => {
       collate: "utf8mb4_general_ci",
     }
   );
-  Post.associate = (db) => {
-    Post.belongsTo(db.User, {
-      foreignKey: "user_id",
-    });
-    Post.hasMany(db.Comment, {
-      foreignKey: "post_id"
-    });
-  };
   return Post;
 };

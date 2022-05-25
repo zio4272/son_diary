@@ -1,7 +1,6 @@
 "use strict";
 
 const Sequelize = require("sequelize");
-const db = {};
 
 module.exports = (sequelize, DataTypes) => {
   const User = sequelize.define(
@@ -44,13 +43,5 @@ module.exports = (sequelize, DataTypes) => {
       //     },
     }
   );
-  User.associate = (db) => {
-    User.hasMany(db.Post, {
-      foreignKey: "user_id",
-    });
-    User.hasMany(db.Comment, {
-      foreignKey: "user_id",
-    });
-  };
   return User;
 };
